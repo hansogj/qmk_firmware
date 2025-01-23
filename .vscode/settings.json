@@ -1,5 +1,11 @@
 // Place your settings in this file to overwrite default and user settings.
 {
+    "window.zoomLevel": 0,
+    "editor.formatOnSave": false,
+    "[json]": {    
+        "editor.defaultFormatter": null,
+        "editor.tabSize": 4
+    },
     // Unofficially, QMK uses spaces for indentation
     "editor.insertSpaces": true,
     // Configure glob patterns for excluding files and folders.

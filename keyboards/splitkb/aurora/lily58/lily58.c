@@ -301,11 +301,28 @@ bool encoder_update_kb(uint8_t index, bool clockwise) {
             tap_code(KC_VOLD);
         }
     } else if (index == 1) {
-        // Page up/Page down
-        if (clockwise) {
-            tap_code(KC_PGDN);
-        } else {
-            tap_code(KC_PGUP);
+        if(layer_state_is(0)){
+            
+            // Page up/Page down
+            if (clockwise) {
+                tap_code(KC_WH_D);
+            } else {
+                tap_code(KC_WH_U);
+            }
+        } 
+        if(layer_state_is(1)){
+              if (clockwise) {
+                tap_code(KC_TAB);
+            } else {
+                tap_code(S(-KC_TAB));
+            }
+        }
+        if(layer_state_is(2)){
+            if (clockwise) {
+                tap_code(KC_VOLU);
+            } else {
+                tap_code(KC_VOLD);
+            }
         }
     }
     return true;
