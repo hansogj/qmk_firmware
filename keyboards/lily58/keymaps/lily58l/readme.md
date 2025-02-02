@@ -22,3 +22,16 @@ Flashing example for this keyboard:
     make lily58/light:lily58l:flash
     
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
+
+
+
+## Quickstart
+
+To update keyboard settings, run 
+
+
+ ```bash
+> qmk compile  -kb lily58 -km hansogj -e CONVERT_TO=promicro_rp2040
+> sudo cp lily58_rev1_hansogj_promicro_rp2040.uf2 /media/hansogj/RPI-RP2/.
+
+ ``` 
