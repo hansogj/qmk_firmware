@@ -2,7 +2,7 @@
 _This keymap is a copy of the [Lily58 default keymap](https://github.com/qmk/qmk_firmware/tree/master/keyboards/lily58/keymaps/default), with slight modifications._
 
 
-## Quickstart
+## Quickstart hansogj 
 
 To update keyboard settings, run 
 

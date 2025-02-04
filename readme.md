@@ -1,5 +1,12 @@
 # Quantum Mechanical Keyboard Firmware
 
+
+My Configs: 
+
+* [lily58 - Ergomech](/keyboards/lily58/keymaps/lily58l/readme.md)
+* [aurora-lily58 - Homemade](/keyboards/splitkb/aurora/lily58/keymaps/hansogj/readme.md)
+
+
 [![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
 [![Discord](https://img.shields.io/discord/440868230475677696.svg)](https://discord.gg/qmk)
 [![Docs Status](https://img.shields.io/badge/docs-ready-orange.svg)](https://docs.qmk.fm)
