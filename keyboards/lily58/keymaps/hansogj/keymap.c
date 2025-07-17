@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_RAISE] = LAYOUT(
-  _______ ,  _______ ,  _______ ,  _______ ,  _______ ,  _______ ,                                   KC_GRV ,  KC_RBRC ,  KC_BSLS ,  KC_MINS ,  KC_EQL ,  KC_MUTE ,
+  _______ ,  _______ ,  _______ ,  _______ ,  _______ ,  _______ ,                                   KC_GRV ,  KC_RBRC ,  KC_BSLS ,  KC_EQL, KC_MINS, KC_MUTE ,
   _______ ,  _______ ,  _______ ,  _______ ,  _______ ,  _______ ,                                   KC_INS ,  KC_NO ,  KC_NO ,  KC_NO ,  KC_HOME ,  KC_PGUP ,
   _______ ,  _______ ,  _______ ,  _______ ,  _______ ,  _______ ,                                   KC_DEL ,  KC_NO ,   KC_UP ,  KC_NO ,  KC_END ,  KC_PGDN ,
   _______ ,  _______ ,  _______ ,  _______ ,  _______ ,  _______ ,   _______ ,  _______ ,            KC_PCMM ,  KC_LEFT ,  KC_DOWN ,  KC_RGHT ,  KC_PEQL ,  _______ ,
@@ -95,12 +95,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
   [_ADJUST] = LAYOUT(
-  _______, TG(0) ,  TG(1) ,  TG(2) , XXXXXXX, XXXXXXX,                   KC_PSCR, KC_NUM , KC_PAUS, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, TO(0) ,  TO(1) ,  TO(2) , XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, DF(0) ,  DF(1) ,  DF(2) , XXXXXXX, XXXXXXX,                   XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-  XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                             _______, _______, _______, _______, _______,  _______, _______, _______
-  )
+  KC_NO,  TG(0), TG(1), TG(2), KC_NO, KC_NO,                                                                              KC_PSCR, KC_NUM, KC_PAUS, KC_NO, KC_NO,KC_NO,
+  KC_NO, TO(0), TO(1), TO(2), KC_NO, KC_NO,                                                                               KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+  KC_NO, DF(0), DF(1), LCTL(LGUI(KC_UP)), KC_NO, KC_NO,                                                                   KC_NO, KC_NO, XXXXXXX, XXXXXXX, XXXXXXX, KC_NUM_LOCK,
+  _______, KC_NO, LCTL(LGUI(KC_LEFT)), LCTL(LGUI(KC_DOWN)), LCTL(LGUI(KC_RIGHT)), KC_NO, KC_NO,                 KC_NO, KC_NO,   KC_NO, XXXXXXX, XXXXXXX, XXXXXXX, KC_INS,
+                            _______, _______, _______, _______,                                                         _______, _______, _______, _______
+)
 };
 
 layer_state_t layer_state_set_user(layer_state_t state) {
