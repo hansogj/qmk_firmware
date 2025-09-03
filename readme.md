@@ -3,9 +3,11 @@
 
 My Configs: 
 
+
 * [lily58 - Ergomech](/keyboards/lily58/keymaps/lily58l/readme.md)
 * [aurora-lily58 - Homemade](/keyboards/splitkb/aurora/lily58/keymaps/hansogj/readme.md)
 
+Run `source ./shortcuts` to enable shortcuts
 
 [![Current Version](https://img.shields.io/github/tag/qmk/qmk_firmware.svg)](https://github.com/qmk/qmk_firmware/tags)
 [![Discord](https://img.shields.io/discord/440868230475677696.svg)](https://discord.gg/qmk)

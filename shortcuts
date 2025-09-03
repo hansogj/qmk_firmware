@@ -1,0 +1,7 @@
+#!/bin/bash -x
+
+alias homemade-compile="qmk compile -kb splitkb/aurora/lily58/rev1 -km hansogj"
+alias homemade-deploy="qmk flash -kb splitkb/aurora/lily58/rev1 -km hansogj"
+
+alias ergomech-compile="qmk compile  -kb lily58 -km hansogj -e CONVERT_TO=promicro_rp2040"
+alias ergomech-deploy="sudo cp lily58_rev1_hansogj_promicro_rp2040.uf2 /media/hansogj/RPI-RP2/."

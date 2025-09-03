@@ -1,7 +1,7 @@
 # Lily58L
 
 
-##  Quickstart hansogj 
+##  Quickstart hansogj (ErgoMech)
 
 To update keyboard settings, run 
 
