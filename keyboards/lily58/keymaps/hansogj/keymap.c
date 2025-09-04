@@ -1,7 +1,9 @@
 #include QMK_KEYBOARD_H
 
 enum custom_keycodes {
-    VDI_HOME = SAFE_RANGE
+    VDI_HOME = SAFE_RANGE,
+    DOT_DOT_SLASH ,
+    VOL_TOGGLE,
 };
 
 enum layer_number {
@@ -29,7 +31,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
  [_QWERTY] = LAYOUT(
-  KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                           KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_ENT,
+  KC_ESC,   KC_1,   KC_2,    KC_3,    KC_4,    KC_5,                           KC_6,    DOT_DOT_SLASH,    KC_8,    KC_9,    KC_0,    KC_KB_MUTE,
   KC_TAB,   KC_Q,   KC_W,    KC_E,    KC_R,    KC_T,                           KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC,
   KC_LSFT,  KC_A,   KC_S,    KC_D,    KC_F,    KC_G,                           KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,
   KC_LCTL,  KC_Z,   KC_X,    KC_C,    KC_V,    KC_B, KC_NUBS,        KC_DEL,   KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,  KC_ENT,
@@ -50,7 +52,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                   `----------------------------'           '------''--------------------'
  */
 [_LOWER] = LAYOUT(
-  _______ ,  KC_F1 ,   KC_F2 ,         KC_F3 ,          KC_F4 ,         KC_F5 ,                                   KC_RBRC , KC_NUHS ,  KC_PSLS ,  KC_PAST ,  KC_PMNS ,  KC_MSTP ,
+  _______ ,  KC_F1 ,   KC_F2 ,         KC_F3 ,          KC_F4 ,         KC_F5 ,                                   KC_RBRC , KC_NUHS ,  KC_PSLS ,  KC_PAST ,  KC_PMNS , KC_PAUSE ,
   VDI_HOME,  KC_F6 ,   KC_F7 ,         KC_F8 ,          KC_F9 ,         KC_F10 ,                                  KC_GRV ,  KC_P7 ,    KC_P8 ,    KC_P9 ,    KC_PPLS ,  _______ ,
   _______ ,  KC_F11 ,  KC_F12 ,        LCA(KC_UP) ,     KC_DLR ,        _______ ,                                 KC_PDOT , KC_P4 ,    KC_P5 ,    KC_P6 ,    KC_PCMM ,  _______ ,
   _______ ,  _______ , LCA(KC_LEFT) ,  LCA(KC_DOWN) ,   LCA(KC_RGHT) ,  _______ ,  _______ ,   _______ ,          KC_P0 ,   KC_P1 ,    KC_P2 ,    KC_P3 ,    KC_PEQL ,  _______ ,
@@ -73,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
 
 [_RAISE] = LAYOUT(
-  _______ ,  _______ ,  _______ ,  _______ ,  _______ ,  _______ ,                                   KC_GRV ,  KC_RBRC ,  KC_BSLS ,  KC_EQL, KC_MINS, KC_MUTE ,
+  _______ ,  _______ ,  _______ ,  _______ ,  _______ ,  _______ ,                                   KC_GRV ,  KC_RBRC ,  KC_BSLS ,  KC_EQL, KC_MINS,  VOL_TOGGLE,
   _______ ,  _______ ,  _______ ,  _______ ,  _______ ,  _______ ,                                   S(KC_GRAVE),  KC_NO ,  KC_NO ,  KC_NO ,  KC_HOME ,  KC_PGUP ,
   _______ ,  _______ ,  _______ ,  _______ ,  _______ ,  _______ ,                                   KC_TILD ,   KC_DEL ,   KC_UP ,  KC_NO ,  KC_END ,  KC_PGDN ,
   _______ ,  _______ ,  _______ ,  _______ ,  _______ ,  _______ ,   _______ ,          _______ ,    KC_PCMM ,  KC_LEFT ,  KC_DOWN ,  KC_RGHT ,  KC_PEQL ,  _______ ,
@@ -170,8 +172,42 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 unregister_code(KC_ENT);
             }
             break;
+
+        case VOL_TOGGLE:
+            if (record->event.pressed) {
+                // Check if Shift is held during the press
+                if (get_mods() & MOD_MASK_SHIFT) {
+                    tap_code(KC_KB_VOLUME_DOWN); // Volume down
+                } else {
+                    tap_code(KC_KB_VOLUME_UP); // Volume up
+                }
+            }
+            break;
+
+
+
+        case DOT_DOT_SLASH:
+             if (record->event.pressed) {
+                if (get_mods() & (MOD_MASK_SHIFT | MOD_MASK_CTRL)) {
+                    unregister_code(KC_LCTL);
+                    unregister_code(KC_LSFT);
+                    // Send the string
+
+                    tap_code(KC_DOT);
+                    tap_code(KC_DOT);
+                    register_code(KC_LSFT);
+                    tap_code(KC_7);
+                    // Re-press modifiers if needed
+                    register_code(KC_LCTL);
+
+                } else {
+                    tap_code(KC_7);
+                }
+            }
+
+
+            break;
+
     }
-
-
-  return true;
+    return true;
 }
