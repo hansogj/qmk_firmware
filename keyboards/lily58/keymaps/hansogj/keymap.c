@@ -1,10 +1,19 @@
+#include "keymap_norwegian.h"
 #include QMK_KEYBOARD_H
+
+/***************************************************************************************************************
+*
+*                                ERGOMECH
+*
+*
+***************************************************************************************************************/
 
 enum custom_keycodes {
     VDI_HOME = SAFE_RANGE,
     DOT_DOT_SLASH,
     VOL_TOGGLE,
     LAYER_CYCLE,
+    TEMPLATE
 };
 
 enum layer_number {
@@ -78,7 +87,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 // ADJUST
 // ╔═══════╦═════╦═════╦═════╦═════╦═════╗              ╔═══════╦══════╦══════╦══════╦══════╦═════════╗
-// ║ CYCLE ║     ║     ║     ║     ║     ║              ║ PRINT ║ ../  ║      |      ║      ║         ║
+// ║ CYCLE ║     ║     ║     ║     ║     ║              ║ PRINT ║ ../  ║´${}´ ║      ║      ║         ║
 // ╠═══════╬═════╬═════╬═════╬═════╬═════╗              ╔═══════╩══════╩══════╩══════╩══════╩═════════╣
 // ║ RAISE ║     ║     ║     ║     ║     ║              ║       ║      ║      ║      ║      ║         ║
 // ╠═══════╬═════╬═════╬═════╬═════╬═════╗              ╔═══════╩══════╩══════╩══════╩══════╩═════════╣
@@ -90,11 +99,11 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // ╚═══════╩═════╩═════╩═════╩═════╩═════╝              ╚═══════╩══════╩══════╩══════╩══════╩═════════╝
 
   [_ADJUST] = LAYOUT(
-  LAYER_CYCLE, _______, _______,             _______,             _______,              _______,                         KC_PSCR, DOT_DOT_SLASH, _______, _______, _______, _______,
-  DF(_RAISE),  _______, _______,             _______,             _______,              _______,                         _______, _______,       _______, _______, _______, _______,
-  DF(_QWERTY), _______, _______,             LCTL(LGUI(KC_UP)),   _______,              _______,                         _______, _______,       _______, _______, _______, _______,
-  DF(_LOWER),  _______, LCTL(LGUI(KC_LEFT)), LCTL(LGUI(KC_DOWN)), LCTL(LGUI(KC_RIGHT)), _______, _______,       _______, _______, _______,       _______, _______, _______, _______,
-               _______, _______,             _______,             _______,                                                        _______,       _______, _______, _______
+  LAYER_CYCLE, _______, _______,             _______,             _______,              _______,                         KC_PSCR, DOT_DOT_SLASH, TEMPLATE, _______, _______, _______,
+  DF(_RAISE),  _______, _______,             _______,             _______,              _______,                         _______, _______,       _______,  _______, _______, _______,
+  DF(_QWERTY), _______, _______,             LCTL(LGUI(KC_UP)),   _______,              _______,                         _______, _______,       _______,  _______, _______, _______,
+  DF(_LOWER),  _______, LCTL(LGUI(KC_LEFT)), LCTL(LGUI(KC_DOWN)), LCTL(LGUI(KC_RIGHT)), _______, _______,       _______, _______, _______,       _______,  _______, _______, _______,
+               _______, _______,             _______,             _______,                                                        _______,       _______,  _______, _______
 )
 };
 
@@ -133,28 +142,41 @@ bool oled_task_user(void) {
     //oled_write_ln(read_host_led_state(), false);
     //oled_write_ln(read_timelog(), false);
   } else {
-    oled_write(read_logo(), false);
-  }
-    return false;
-}
+    oled_write(read_logo(), false); } return false; }
 #endif // OLED_ENABLE
 
+void SINGLE_QUOT(void) {
+    register_code(KC_RALT);
+    tap_code(KC_SCLN);
+    tap_code(KC_SCLN);
+    unregister_code(KC_RALT);
+}
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uint8_t current_default_layer = get_highest_layer(default_layer_state);
 
     if (record->event.pressed) {
         switch (keycode) {
-            case VDI_HOME:
-                SEND_STRING(SS_DOWN(X_LCTL)SS_DOWN(X_LALT)SS_TAP(X_PAUS)SS_UP(X_LALT)SS_UP(X_LCTL)SS_DELAY(100)SS_TAP(X_DOWN)SS_DELAY(100)SS_TAP(X_ENT));
+        case VDI_HOME:
+                SEND_STRING(SS_DOWN(X_LCTL)SS_DOWN(X_LALT)SS_TAP(X_PAUS)SS_UP(X_LALT)SS_UP(X_LCTL)SS_DELAY(200)SS_TAP(X_DOWN)SS_DELAY(200)SS_TAP(X_ENT));
                 return false;
 
-         case DOT_DOT_SLASH:
+        case DOT_DOT_SLASH:
             send_string("..");
             tap_code16(S(KC_7));
             break;
 
-        case LAYER_CYCLE:
+        case TEMPLATE:
+            SINGLE_QUOT();
+            SEND_STRING(SS_RALT("4"));
+            SEND_STRING(SS_RALT("7"));
+            SEND_STRING(SS_RALT("0"));
+            SINGLE_QUOT();
+            tap_code(KC_LEFT);
+            tap_code(KC_LEFT);
+            break;
+
+            case LAYER_CYCLE:
 
             if (current_default_layer == _QWERTY) {
 
@@ -173,13 +195,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             return false;
 
          case VOL_TOGGLE:
-            if (record->event.pressed) {
-                // Check if Shift is held during the press
-                if (get_mods() & MOD_MASK_SHIFT) {
-                    tap_code(KC_KB_VOLUME_DOWN); // Volume down
-                } else {
-                    tap_code(KC_KB_VOLUME_UP); // Volume up
-                }
+            // Check if Shift is held during the press
+            if (get_mods() & MOD_MASK_SHIFT) {
+                tap_code(KC_KB_VOLUME_DOWN); // Volume down
+            } else {
+                tap_code(KC_KB_VOLUME_UP); // Volume up
             }
         break;
         }
