@@ -18,7 +18,7 @@ enum custom_keycodes {
     DOT_DOT_SLASH ,
     VOL_TOGGLE,
     LAYER_CYCLE,
-    TEAMPLATE,
+    TEMPLATE,
 };
 
 enum layer_number {
