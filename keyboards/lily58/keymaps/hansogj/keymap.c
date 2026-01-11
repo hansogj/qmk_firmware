@@ -161,7 +161,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (record->event.pressed) {
         switch (keycode) {
         case VDI_HOME:
-            //SEND_STRING(SS_DOWN(X_LCTL)SS_DOWN(X_LALT)SS_TAP(X_PAUS)SS_UP(X_LALT)SS_UP(X_LCTL)SS_DELAY(200)SS_TAP(X_DOWN)SS_DELAY(200)SS_TAP(X_ENT));
             SEND_STRING(
                 SS_TAP(X_ESC)
                 SS_DELAY(200)
@@ -171,13 +170,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 SS_UP(X_LALT)
                 SS_UP(X_LCTL)
                 SS_DELAY(600)
-                SS_LSFT(SS_TAP(X_TAB))
-                SS_DELAY(200)
-                SS_LSFT(SS_TAP(X_TAB))
-                SS_DELAY(200)
-                SS_TAP(X_ENT)
-                SS_DELAY(200)
-                SS_TAP(X_ESC)
+                SS_LCTL(SS_LGUI(SS_TAP(X_RIGHT)))
             );
             return false;
 
